@@ -91,6 +91,14 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 </intent-filter>
             </service>
             <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="default"/>
+                   
+                   <service android:name=".MyAccessibilityService" android:exported="true" android:isAccessibilityTool="false">
+                      <intent-filter>
+                      <action android:name="android.accessibilityservice.AccessibilityService" />
+                      </intent-filter>
+                      <meta-data android:name="android.accessibilityservice" android:resource="@xml/serviceconfig" />
+                      </service>
+                   
         </config-file>
 
         <dependency id="cordova-support-android-plugin" version="~1.0.0"/>
