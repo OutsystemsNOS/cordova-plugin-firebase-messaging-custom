@@ -14,6 +14,9 @@ import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 
+import org.apache.cordova.PermissionHelper;
+import android.Manifest;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
