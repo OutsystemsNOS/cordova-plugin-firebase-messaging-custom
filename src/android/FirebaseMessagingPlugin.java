@@ -164,6 +164,21 @@ public class FirebaseMessagingPlugin extends ReflectiveCordovaPlugin {
     }
 
     @CordovaMethod
+    private void requestPermissionHelper(JSONObject options, CallbackContext callbackContext) {
+        Context context = cordova.getActivity().getApplicationContext();
+        this.forceShow = options.optBoolean("forceShow");
+
+        if (NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+            callbackContext.success();
+        } else if (Build.VERSION.SDK_INT >= 33) {
+            PermissionHelper.requestPermission(this, 0, Manifest.permission.POST_NOTIFICATIONS);
+            callbackContext.success();
+        } else {
+            callbackContext.error("Notifications permission is not granted");
+        }
+    }
+
+    @CordovaMethod
     private void createChannel(JSONObject options, CallbackContext callbackContext) throws JSONException {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             throw new UnsupportedOperationException("Notification channels are not supported");
