@@ -98,7 +98,6 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
                 .setSmallIcon(defaultNotificationIcon)
                 .setColor(defaultNotificationColor)
                 // must set priority to make sure forceShow works properly
-                .setDefaults (Notification.DEFAULT_ALL)
                 .setPriority(1);
 
         notificationManager.notify(1, builder.build());
