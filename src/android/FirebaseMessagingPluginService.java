@@ -81,12 +81,12 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
         intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
         broadcastManager.sendBroadcast(intent);
         
-        //if (FirebaseMessagingPlugin.isForceShow()) {
+        if (FirebaseMessagingPlugin.isForceShow()) {
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             if (notification != null) {
                 showAlert(notification);
             }
-        //}
+        }
     }
 
     private void showAlert(RemoteMessage.Notification notification) {
@@ -100,15 +100,14 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
                 // must set priority to make sure forceShow works properly
                 .setPriority(1);
 
-        notificationManager.notify(1, builder.build());
-        //notificationManager.notify(0, builder.build());
+        notificationManager.notify(0, builder.build());
         // dismiss notification to hide icon from status bar automatically
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 notificationManager.cancel(0);
             }
-        }, 5000);
+        }, 3000);
     }
 
     private String getNotificationChannel(RemoteMessage.Notification notification) {
