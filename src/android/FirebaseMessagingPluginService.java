@@ -77,7 +77,7 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {  
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         if (notification != null) {
-            showAlert(notification);
+            showAlert(notification, remoteMessage);
         }
         if (remoteMessage.getData().size() > 0) {
             FirebaseMessagingPlugin.sendNotification(remoteMessage);
@@ -87,7 +87,7 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
         broadcastManager.sendBroadcast(intent);
     }
 
-    private void showAlert(RemoteMessage.Notification notification) {
+    private void showAlert(RemoteMessage.Notification notification, RemoteMessage remoteMessage) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getNotificationChannel(notification))
                 .setSound(getNotificationSound(notification.getSound()))
                 .setContentTitle(notification.getTitle())
