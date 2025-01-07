@@ -100,9 +100,9 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
                 .setPriority(1);
 
         notificationManager.notify(0, builder.build());
+        broadcastManager.sendBroadcast(intent);
         // dismiss notification to hide icon from status bar automatically
         new Handler(getMainLooper()).postDelayed(new Runnable() {
-            broadcastManager.sendBroadcast(intent);
             @Override
             public void run() {
                 notificationManager.cancel(0);
