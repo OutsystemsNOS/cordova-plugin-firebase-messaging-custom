@@ -77,17 +77,11 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {  
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         if (notification != null) {
-            // Cria e exibe a notificação manualmente
             showAlert(notification);
         }
-    
-        // Lida com mensagens de dados (se existirem)
         if (remoteMessage.getData().size() > 0) {
             FirebaseMessagingPlugin.sendNotification(remoteMessage);
-            // Processar os dados, se necessário
         }
-    
-        // Envia broadcast para outras partes do app
         Intent intent = new Intent(ACTION_FCM_MESSAGE);
         intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
         broadcastManager.sendBroadcast(intent);
