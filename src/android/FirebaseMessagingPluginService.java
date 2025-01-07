@@ -76,18 +76,19 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {  
         RemoteMessage.Notification notification = remoteMessage.getNotification();
+        Intent intent = new Intent(ACTION_FCM_MESSAGE);
+        intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
+        
         if (notification != null) {
-            showAlert(notification, remoteMessage);
+            showAlert(notification, intent);
         }
         if (remoteMessage.getData().size() > 0) {
             FirebaseMessagingPlugin.sendNotification(remoteMessage);
         }
-        Intent intent = new Intent(ACTION_FCM_MESSAGE);
-        intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
         broadcastManager.sendBroadcast(intent);
     }
 
-    private void showAlert(RemoteMessage.Notification notification, RemoteMessage remoteMessage) {
+    private void showAlert(RemoteMessage.Notification notification, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getNotificationChannel(notification))
                 .setSound(getNotificationSound(notification.getSound()))
                 .setContentTitle(notification.getTitle())
@@ -101,8 +102,6 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
         notificationManager.notify(0, builder.build());
         // dismiss notification to hide icon from status bar automatically
         new Handler(getMainLooper()).postDelayed(new Runnable() {
-            Intent intent = new Intent(ACTION_FCM_MESSAGE);
-            intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
             broadcastManager.sendBroadcast(intent);
             @Override
             public void run() {
