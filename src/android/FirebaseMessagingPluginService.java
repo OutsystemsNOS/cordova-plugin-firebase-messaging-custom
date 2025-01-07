@@ -74,34 +74,19 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData().size() > 0) {
-            FirebaseMessagingPlugin.sendNotification(remoteMessage);
-    
-            Intent intent = new Intent(ACTION_FCM_MESSAGE);
-            intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
-            broadcastManager.sendBroadcast(intent);
-        }
-        if (remoteMessage.getNotification() != null) {
-            RemoteMessage.Notification notification = remoteMessage.getNotification();
-            showAlert(notification); 
-            FirebaseMessagingPlugin.sendNotification(remoteMessage);
-        }
-
-        /*
+    public void onMessageReceived(RemoteMessage remoteMessage) {    
         FirebaseMessagingPlugin.sendNotification(remoteMessage);
 
         Intent intent = new Intent(ACTION_FCM_MESSAGE);
         intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
         broadcastManager.sendBroadcast(intent);
         
-        if (FirebaseMessagingPlugin.isForceShow()) {
+        //if (FirebaseMessagingPlugin.isForceShow()) {
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             if (notification != null) {
                 showAlert(notification);
             }
-        }
-        */
+        //}
     }
 
     private void showAlert(RemoteMessage.Notification notification) {
