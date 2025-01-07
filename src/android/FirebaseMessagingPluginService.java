@@ -85,6 +85,7 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             RemoteMessage.Notification notification = remoteMessage.getNotification();
             showAlert(notification); 
+            FirebaseMessagingPlugin.sendNotification(remoteMessage);
         }
 
         /*
