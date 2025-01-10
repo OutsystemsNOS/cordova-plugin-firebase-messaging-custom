@@ -81,10 +81,8 @@ public class FirebaseMessagingPluginService extends FirebaseMessagingService {
         intent.putExtra(EXTRA_FCM_MESSAGE, remoteMessage);
         broadcastManager.sendBroadcast(intent);
 
-        if (FirebaseMessagingPlugin.isForceShow()) {
-            if (!remoteMessage.getData().isEmpty()) {
-                showAlert(notification);
-            }
+        if (remoteMessage.getData().size() > 0) {
+            showAlert(notification);
         }
     }
 
