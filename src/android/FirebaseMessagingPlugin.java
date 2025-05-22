@@ -64,7 +64,7 @@ public class FirebaseMessagingPlugin extends ReflectiveCordovaPlugin {
         try {
             Context context = cordova.getActivity().getApplicationContext();
             boolean enabled = NotificationManagerCompat.from(context).areNotificationsEnabled();
-            callbackContext.success(enabled);
+            callbackContext.success(Boolean.toString(enabled));
         } catch (Exception e) {
             callbackContext.error("Erro ao verificar permissões: " + e.getMessage());
         }
