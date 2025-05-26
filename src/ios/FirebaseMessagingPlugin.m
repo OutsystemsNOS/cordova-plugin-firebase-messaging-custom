@@ -1,6 +1,7 @@
 #import "FirebaseMessagingPlugin.h"
 #import <Cordova/CDV.h>
 #import "AppDelegate.h"
+#import "UIKit/UIKit.h"
 
 //@import Firebase;
 @import FirebaseMessaging;
